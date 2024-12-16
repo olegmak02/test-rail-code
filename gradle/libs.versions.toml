@@ -1,0 +1,40 @@
+[versions]
+kotlinVer = "2.0.10"
+springBootVer = "3.3.2"
+dependencyManagementVer = "1.1.6"
+detektVer = "1.23.5"
+cucumberVer = "7.20.1"
+mockkVer = "1.13.13"
+junitVer = "5.10.0"
+wiremockVer = "3.10.0"
+cucumberRunnerVer = "0.0.11"
+kotlinJsonserializationVer = "1.7.3"
+ajax-gradle-conventions = "2.13.1.198.MASTER-SNAPSHOT"
+
+[libraries]
+# Cucumber
+cucumberCore = { group = "io.cucumber", name = "cucumber-core", version.ref = "cucumberVer" }
+cucumberJava = { group = "io.cucumber", name = "cucumber-java", version.ref = "cucumberVer" }
+cucumberJunit = { group = "io.cucumber", name = "cucumber-junit", version.ref = "cucumberVer" }
+
+# MockK
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockkVer" }
+
+# Wiremock
+wiremock = { group = "org.wiremock", name = "wiremock-standalone", version.ref = "wiremockVer" }
+
+# JUnit
+junitJupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitVer" }
+
+# Koltin
+kotlinJsonserialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinJsonserializationVer" }
+
+[plugins]
+cucumberRunner = { id = "se.thinkcode.cucumber-runner", version.ref = "cucumberRunnerVer" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVer" }
+
+# Ajax
+deltaCoverageConventions = { id = "systems.ajax.gradle.coverage.delta-coverage-conventions", version.ref = "ajax-gradle-conventions" }
+kotlinConventions = { id = "systems.ajax.gradle.kotlin-conventions", version.ref = "ajax-gradle-conventions" }
+springConventions = { id = "systems.ajax.gradle.spring-conventions", version.ref = "ajax-gradle-conventions" }
+

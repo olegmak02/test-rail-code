@@ -1,0 +1,14 @@
+testrail:
+  baseUrl: ${TESTRAIL_BASE_URL?:unknown}
+  login: ${TESTRAIL_LOGIN?:unknown}
+  token: ${TESTRAIL_TOKEN?:unknown}
+
+spring:
+  main:
+    web-application-type: none
+
+project:
+    id: 2
+
+suite:
+  id: 1
