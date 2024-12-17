@@ -11,6 +11,11 @@ permissions:
 
 env:
   label: " code "
+  gradle_cmd: ./gradlew --parallel --build-cache
+    -PAWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+    -PAWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    -Psystems.ajax.mavenRepository.snapshots=${{ secrets.SNAPSHOTS_REPOSITORY }}
+    -Psystems.ajax.mavenRepository.releases=${{ secrets.RELEASES_REPOSITORY }}
 
 jobs:
   generate-and-create-pr:
@@ -59,6 +64,9 @@ jobs:
         if: ${{ !cancelled() && contains(steps.pr-labels.outputs.labels, env.label) }}
         with:
           ref: 'main'
+
+      - name: Build with Gradle
+        run: ${gradle_cmd} build -x deltaCoverage
 
       - name: Run Main Code
         if: ${{ steps.checkout-branch.outcome != 'skipped'  }}
