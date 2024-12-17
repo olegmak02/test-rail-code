@@ -34,7 +34,7 @@ internal class CaseManager(
         return filesToWriteIds
     }
 
-    private fun add(urlToTheFile: String, customCaseFields: List<CaseField>): FileId {
+    override fun add(urlToTheFile: String, customCaseFields: List<CaseField>): FileId {
         val newCase = CaseMapper.mapFileToCase(urlToTheFile)
         val response: Case = testrail.cases()
             .add(newCase.sectionId, newCase, customCaseFields).execute()
