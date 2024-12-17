@@ -76,6 +76,7 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
           ${gradle_cmd} runMain
+          git status
 
       - name: Create PR
         id: create-pr
