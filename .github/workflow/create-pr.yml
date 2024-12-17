@@ -68,7 +68,7 @@ jobs:
         run: |
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
-          ./gradlew bootRun      
+          ./gradlew runMain
 
       - name: Create PR
         id: create-pr

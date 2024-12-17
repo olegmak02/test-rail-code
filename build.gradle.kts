@@ -55,3 +55,8 @@ tasks.register("allCheck") {
 
     dependsOn("check", "deltaCoverage", "detektMain", "detektTest")
 }
+
+tasks.register<JavaExec>("runMain") {
+    mainClass.set("systems.ajax.codetests.Main")
+    classpath = sourceSets["main"].runtimeClasspath
+}
