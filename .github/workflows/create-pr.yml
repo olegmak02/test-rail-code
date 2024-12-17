@@ -63,7 +63,7 @@ jobs:
         uses: actions/checkout@v4
         if: ${{ !cancelled() && contains(steps.pr-labels.outputs.labels, env.label) }}
         with:
-          ref: 'main'
+          ref: ${{ env.new_branch }}
 
       - name: Build with Gradle
         run: ${gradle_cmd} build -x deltaCoverage
