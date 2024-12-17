@@ -1,7 +1,10 @@
 testrail:
-  baseUrl: ${TESTRAIL_BASE_URL?:unknown}
-  login: ${TESTRAIL_LOGIN?:unknown}
-  token: ${TESTRAIL_TOKEN?:unknown}
+  baseUrl: https://olegtestrail.testrail.io/
+  #${TESTRAIL_BASE_URL?:unknown}
+  login: olleglion02@gmail.com
+  #${TESTRAIL_LOGIN?:unknown}
+  token: 8MbUxxpgfyPi6qH.QRU2-6yWeK/sIdYqVFgqyg2l7
+  #${TESTRAIL_TOKEN?:unknown}
 
 spring:
   main:
