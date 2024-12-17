@@ -75,7 +75,7 @@ jobs:
         run: |
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
-          git diff --name-status --find-renames main
+          git diff --name-status --find-renames origin/main
           ${gradle_cmd} runMain
           git status
 
