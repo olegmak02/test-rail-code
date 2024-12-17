@@ -1,5 +1,7 @@
 package systems.ajax.codetests.infrastructure.testrail
 
+import org.springframework.boot.context.event.ApplicationReadyEvent
+import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import systems.ajax.codetests.application.model.diff.Type
 import systems.ajax.codetests.application.port.input.ApplyDiffCaseInPort
@@ -14,6 +16,7 @@ internal class DifferencePublisher(
     private val applyDiffCaseInPort: ApplyDiffCaseInPort,
 ) : TestrailManagerOutPort {
 
+    @EventListener(ApplicationReadyEvent::class)
     override fun publish() {
         fileDifferenceInPort.getDifference()
             .forEach { (typeAction, files) ->

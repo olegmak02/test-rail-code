@@ -45,7 +45,7 @@ internal class GitDifference : FileDifferenceInPort {
     }
 
     private fun executeGitDiffCommand(): String {
-        val process = ProcessBuilder("git", "diff", "--name-status", "--find-renames", "master").start()
+        val process = ProcessBuilder("git", "diff", "--name-status", "--find-renames", "main").start()
         return BufferedReader(InputStreamReader(process.inputStream)).readText()
     }
 
