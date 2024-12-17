@@ -1,10 +1,7 @@
 package systems.ajax.codetests.infrastructure.testrail.repository
 
-import io.mockk.impl.annotations.InjectMockKs
-import io.mockk.junit5.MockKExtension
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -17,10 +14,8 @@ import java.util.stream.Stream
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-@ExtendWith(MockKExtension::class)
-internal class SectionRepositoryTest {
-    @InjectMockKs
-    private lateinit var sectionFileRepository: SectionFileRepository
+internal class SectionRepositoryIT {
+    private val sectionFileRepository: SectionFileRepository = SectionFileRepository()
 
     @ParameterizedTest
     @MethodSource("arguments for should return valid section")

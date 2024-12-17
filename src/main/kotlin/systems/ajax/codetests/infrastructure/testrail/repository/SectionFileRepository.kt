@@ -19,16 +19,16 @@ class SectionFileRepository : SectionRepositoryOutPort {
         val metaSectionFile = File(fileId.filePath.path)
 
         if (metaSectionFile.isValidFile()) {
-            var parsedData = readJson(metaSectionFile)
-            val withUpdatedID = parsedData.copy(id = fileId.id)
-            metaSectionFile.writeText(Json.encodeToString<Meta>(withUpdatedID))
+            val parsedData = readJson(metaSectionFile)
+            val withUpdatedId = parsedData.copy(id = fileId.id)
+            metaSectionFile.writeText(Json.encodeToString<Meta>(withUpdatedId))
         } else {
             log.warn("Invalid .section file path! {}", fileId.filePath)
         }
     }
 
     override fun get(filePath: FilePath): AppSection {
-        val meta: Meta = Json.Default.decodeFromString<Meta>(File(filePath.path).readText())
+        val meta: Meta = readJson(File(filePath.path))
         return AppSection(
             meta.id,
             extractSectionName(filePath.path),

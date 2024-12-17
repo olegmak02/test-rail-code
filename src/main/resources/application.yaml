@@ -9,6 +9,3 @@ spring:
 
 project:
     id: 2
-
-suite:
-  id: 1

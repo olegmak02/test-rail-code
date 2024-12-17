@@ -43,7 +43,7 @@ internal class TestrailSectionWebClientTest {
         )
 
         // WHEN
-        var actual = testrailSectionWebClient.move(sectionId, parentId)
+        val actual = testrailSectionWebClient.move(sectionId, parentId)
 
         // THEN
         assertEquals(expected, actual)

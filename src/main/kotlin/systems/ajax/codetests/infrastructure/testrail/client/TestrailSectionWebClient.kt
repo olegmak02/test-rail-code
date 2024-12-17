@@ -9,7 +9,7 @@ internal class TestrailSectionWebClient(
     private val webClient: WebClient,
 ) {
 
-    fun move(sectionId: Int, parentId: Int): Section? {
+    fun move(sectionId: Int, parentId: Int?): Section? {
         return webClient.post()
             .uri {
                 it.path(DEFAULT_BASE_API_PATH + MOVE_SECTION + sectionId)

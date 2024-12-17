@@ -28,7 +28,7 @@ internal class CaseManager(
             ?.forEach { delete(it.path) }
         differenceMap[TypeAction(Type.CASE, Action.MODIFIED)]
             ?.forEach { update(it.path, customCaseFields) }
-        differenceMap[TypeAction(Type.CASE, Action.MOVED_OR_RENAMED)]
+        differenceMap[TypeAction(Type.CASE, Action.MOVED_OR_UPDATED)]
             ?.forEach { update(it.path, customCaseFields) }
 
         return filesToWriteIds
@@ -47,7 +47,7 @@ internal class CaseManager(
     }
 
     private fun delete(urlToTheFile: String) {
-        val extractIdFromDeletedFile = ExtractionUtils.extractIdFromDeletedFile(urlToTheFile)
+        val extractIdFromDeletedFile = ExtractionUtils.extractIdFromDeletedFile(FilePath(urlToTheFile))
         if (extractIdFromDeletedFile != null) {
             testrail.cases().delete(extractIdFromDeletedFile).execute()
         }

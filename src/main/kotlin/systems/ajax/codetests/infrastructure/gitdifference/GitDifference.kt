@@ -31,8 +31,8 @@ internal class GitDifference : FileDifferenceInPort {
     }
 
     private fun extractAction(type: Type, parts: List<String>): Pair<TypeAction, FilePath> {
-        return if (parts[0].contains(GIT_MOVED_OR_RENAMED_SYMBOL)) {
-            TypeAction(type, Action.MOVED_OR_RENAMED) to FilePath(parts[2])
+        return if (parts[0].contains(GIT_MOVED_OR_UPDATED_SYMBOL)) {
+            TypeAction(type, Action.MOVED_OR_UPDATED) to FilePath(parts[2])
         } else if (parts[0] == GIT_REMOVED_SYMBOL) {
             TypeAction(type, Action.REMOVED) to FilePath(parts[1])
         } else if (parts[0] == GIT_MODIFIED_SYMBOL) {
@@ -45,7 +45,7 @@ internal class GitDifference : FileDifferenceInPort {
     }
 
     private fun executeGitDiffCommand(): String {
-        val process = ProcessBuilder("git", "diff", "--name-status", "--find-renames", "main").start()
+        val process = ProcessBuilder("git", "diff", "--name-status", "--find-renames", "master").start()
         return BufferedReader(InputStreamReader(process.inputStream)).readText()
     }
 
@@ -57,6 +57,6 @@ internal class GitDifference : FileDifferenceInPort {
         private const val GIT_REMOVED_SYMBOL = "D"
         private const val GIT_MODIFIED_SYMBOL = "M"
         private const val GIT_ADDED_SYMBOL = "A"
-        private const val GIT_MOVED_OR_RENAMED_SYMBOL = "R"
+        private const val GIT_MOVED_OR_UPDATED_SYMBOL = "R"
     }
 }

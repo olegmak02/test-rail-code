@@ -16,31 +16,17 @@ internal class ApplyDiffSectionUseCase(
 
     override fun execute(filePath: FilePath, action: Action) {
         when (action) {
-            Action.ADDED ->
-                sectionRepository.writeIdToSectionFile(
-                    FileId(
-                        sectionManager.add(
-                            sectionRepository.get(filePath),
-                        ),
-                        filePath
-                    )
-                )
+            Action.ADDED -> sectionRepository.get(filePath)
+                .let { appSection -> sectionManager.add(appSection) }
+                .let { id -> sectionRepository.writeIdToSectionFile(FileId(id, filePath)) }
 
-            Action.REMOVED -> sectionManager.delete(
-                filePath
-            )
+            Action.REMOVED -> sectionManager.delete(filePath)
 
-            Action.MODIFIED -> sectionManager.update(
-                sectionRepository.get(
-                    filePath
-                )
-            )
+            Action.MODIFIED -> sectionRepository.get(filePath)
+                .let { appSection -> sectionManager.update(appSection) }
 
-            Action.MOVED_OR_RENAMED -> sectionManager.move(
-                sectionRepository.get(
-                    filePath
-                )
-            )
+            Action.MOVED_OR_UPDATED -> sectionRepository.get(filePath)
+                .let { appSection -> sectionManager.move(appSection) }
 
             Action.UNKNOWN -> error(
                 "Something went wrong during processing of this file: $filePath"

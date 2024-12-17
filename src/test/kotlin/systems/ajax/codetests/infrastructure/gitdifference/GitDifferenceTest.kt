@@ -40,14 +40,14 @@ internal class GitDifferenceTest {
                 Arguments.of(
                     "R100    us-subdomain/resources/folder/util/LogginExtention.section   " +
                         "   us-subdomain/resources/folder/util2/LogginExtention.section",
-                    TypeAction(Type.SECTION, Action.MOVED_OR_RENAMED)
+                    TypeAction(Type.SECTION, Action.MOVED_OR_UPDATED)
                         to
                         FilePath("us-subdomain/resources/folder/util2/LogginExtention.section")
                 ),
                 Arguments.of(
                     "R045    us-subdomain/resources/LogginExtention.section      " +
                         "us-subdomain/resources/util/LogginExtention.section",
-                    TypeAction(Type.SECTION, Action.MOVED_OR_RENAMED)
+                    TypeAction(Type.SECTION, Action.MOVED_OR_UPDATED)
                         to
                         FilePath("us-subdomain/resources/util/LogginExtention.section")
                 ),
@@ -72,21 +72,21 @@ internal class GitDifferenceTest {
                 Arguments.of(
                     "R100    us-subdomain/resources/folder/util/LogginExtention.feature   " +
                         "   us-subdomain/resources/folder/util2/LogginExtention.feature",
-                    TypeAction(Type.CASE, Action.MOVED_OR_RENAMED)
+                    TypeAction(Type.CASE, Action.MOVED_OR_UPDATED)
                         to
                         FilePath("us-subdomain/resources/folder/util2/LogginExtention.feature")
                 ),
                 Arguments.of(
                     "R100    us-subdomain/resources/LogginExtentionN.feature      " +
                         "us-subdomain/resources/LogginExtentionN.feature",
-                    TypeAction(Type.CASE, Action.MOVED_OR_RENAMED)
+                    TypeAction(Type.CASE, Action.MOVED_OR_UPDATED)
                         to
                         FilePath("us-subdomain/resources/LogginExtentionN.feature")
                 ),
                 Arguments.of(
                     "R045    us-subdomain/resources/LogginExtention.feature    " +
                         "  us-subdomain/resources/util/LogginExtention.feature",
-                    TypeAction(Type.CASE, Action.MOVED_OR_RENAMED)
+                    TypeAction(Type.CASE, Action.MOVED_OR_UPDATED)
                         to
                         FilePath("us-subdomain/resources/util/LogginExtention.feature")
                 ),

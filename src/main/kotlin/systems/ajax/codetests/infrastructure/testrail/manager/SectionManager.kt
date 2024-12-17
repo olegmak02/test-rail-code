@@ -8,14 +8,14 @@ import systems.ajax.codetests.application.model.AppSection
 import systems.ajax.codetests.application.model.FilePath
 import systems.ajax.codetests.application.port.output.SectionManagerOutPort
 import systems.ajax.codetests.infrastructure.testrail.client.TestrailSectionWebClient
+import systems.ajax.codetests.infrastructure.testrail.mapper.SectionMapper.toTestrailView
 import systems.ajax.codetests.infrastructure.testrail.repository.ExtractionUtils
 
 @Component
 internal class SectionManager(
     private val testrail: TestRail,
     private val testrailSectionWebClient: TestrailSectionWebClient,
-    @Value("\${project.id}") private val projectId: Int,
-    @Value("\${suite.id}") private val suiteId: Int,
+    @Value("\${project.id}") private val projectId: Int
 ) : SectionManagerOutPort {
 
     override fun add(appSection: AppSection): Int {
@@ -28,8 +28,8 @@ internal class SectionManager(
         testrail.sections().update(appSection.toTestrailView()).execute()
     }
 
-    override fun delete(urlToTheFile: FilePath) {
-        val extractIdFromDeletedFile = ExtractionUtils.extractIdFromDeletedFile(urlToTheFile.path)
+    override fun delete(filePath: FilePath) {
+        val extractIdFromDeletedFile = ExtractionUtils.extractIdFromDeletedFile(filePath)
         if (extractIdFromDeletedFile != null) {
             testrail.sections().delete(extractIdFromDeletedFile).execute()
         }
@@ -37,35 +37,7 @@ internal class SectionManager(
 
     @Suppress("MapGetWithNotNullAssertionOperator", "UnsafeCallOnNullableType")
     override fun move(appSection: AppSection) {
-        sectionsMap.ifEmpty {
-            val sections = testrail.sections().list(projectId, suiteId).execute()
-                .associateBy { section -> section.id }
-            sectionsMap.putAll(sections)
-        }
-
-        val localSection = appSection.toTestrailView()
-        val remoteSection: Section = sectionsMap[localSection.id]!!
-
-        if (remoteSection.parentId != localSection.parentId) {
-            testrailSectionWebClient.move(localSection.id, localSection.parentId)
-        }
-
-        if (remoteSection.name != localSection.name) {
-            testrail.sections().update(localSection)
-        }
-    }
-
-    companion object {
-        val sectionsMap: MutableMap<Int, Section> = mutableMapOf()
-
-        private fun AppSection.toTestrailView(): Section {
-            val section = Section()
-            id?.let { section.id = it }
-            section
-                .setName(name)
-                .setParentId(parentId)
-                .setDescription(description)
-            return section
-        }
+        testrailSectionWebClient.move(appSection.id!!, appSection.parentId)
+        update(appSection)
     }
 }

@@ -4,6 +4,6 @@ enum class Action {
     ADDED,
     REMOVED,
     MODIFIED,
-    MOVED_OR_RENAMED,
+    MOVED_OR_UPDATED,
     UNKNOWN,
 }

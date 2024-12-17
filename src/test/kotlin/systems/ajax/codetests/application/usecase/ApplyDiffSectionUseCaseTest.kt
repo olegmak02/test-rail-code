@@ -29,7 +29,7 @@ class ApplyDiffSectionUseCaseTest {
     @Test
     fun `should execute add flow`() {
         // GIVEN
-        var action = Action.ADDED
+        val action = Action.ADDED
         val newAppSection = appSection.copy(id = null)
         justRun {
             sectionRepositoryOutPort.writeIdToSectionFile(
@@ -58,7 +58,7 @@ class ApplyDiffSectionUseCaseTest {
     @Test
     fun `should execute delete flow`() {
         // GIVEN
-        var action = Action.REMOVED
+        val action = Action.REMOVED
         justRun {
             sectionManagerOutPort.delete(filePath)
         }
@@ -73,7 +73,7 @@ class ApplyDiffSectionUseCaseTest {
     @Test
     fun `should execute update flow`() {
         // GIVEN
-        var action = Action.MODIFIED
+        val action = Action.MODIFIED
         every {
             sectionRepositoryOutPort.get(filePath)
         } returns appSection
@@ -92,7 +92,7 @@ class ApplyDiffSectionUseCaseTest {
     @Test
     fun `should execute move flow`() {
         // GIVEN
-        var action = Action.MOVED_OR_RENAMED
+        val action = Action.MOVED_OR_UPDATED
         every {
             sectionRepositoryOutPort.get(filePath)
         } returns appSection
@@ -111,7 +111,7 @@ class ApplyDiffSectionUseCaseTest {
     @Test
     fun `should throw exception`() {
         // GIVEN
-        var action = Action.UNKNOWN
+        val action = Action.UNKNOWN
 
         // WHEN THEN
         assertThrows<IllegalStateException> { useCase.execute(filePath, action) }

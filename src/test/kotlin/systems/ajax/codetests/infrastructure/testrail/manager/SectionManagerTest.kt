@@ -35,16 +35,13 @@ internal class SectionManagerTest {
     private lateinit var add: TestRail.Sections.Add
 
     @MockK
-    private lateinit var list: TestRail.Sections.List
-
-    @MockK
     private lateinit var testrailSectionWebClient: TestrailSectionWebClient
 
     private lateinit var sectionManager: SectionManager
 
     @BeforeEach
     fun setUp() {
-        sectionManager = SectionManager(testRail, testrailSectionWebClient, 1, 1)
+        sectionManager = SectionManager(testRail, testrailSectionWebClient, PROJECT_ID)
     }
 
     @Test
@@ -54,7 +51,7 @@ internal class SectionManagerTest {
             testRail.sections()
         } returns sections
         every {
-            sections.add(any(), any())
+            sections.add(PROJECT_ID, testrailSection)
         } returns add
         every {
             add.execute()
@@ -65,7 +62,7 @@ internal class SectionManagerTest {
 
         // THEN
         verify(exactly = 1) { testRail.sections() }
-        verify(exactly = 1) { sections.add(any(), any()) }
+        verify(exactly = 1) { sections.add(PROJECT_ID, testrailSection) }
         verify(exactly = 1) { add.execute() }
         assertEquals(newSection.id, actual)
     }
@@ -77,7 +74,7 @@ internal class SectionManagerTest {
             testRail.sections()
         } returns sections
         every {
-            sections.update(any())
+            sections.update(testrailSection)
         } returns update
         justRun {
             update.execute()
@@ -88,7 +85,7 @@ internal class SectionManagerTest {
 
         // THEN
         verify(exactly = 1) { testRail.sections() }
-        verify(exactly = 1) { sections.update(any()) }
+        verify(exactly = 1) { sections.update(testrailSection) }
         verify(exactly = 1) { update.execute() }
     }
 
@@ -102,13 +99,13 @@ internal class SectionManagerTest {
             testRail.sections()
         } returns sections
         every {
-            sections.delete(any())
+            sections.delete(returnedId)
         } returns delete
         justRun {
             delete.execute()
         }
         every {
-            ExtractionUtils.extractIdFromDeletedFile(any())
+            ExtractionUtils.extractIdFromDeletedFile(filePath)
         } returns returnedId
 
         // WHEN
@@ -116,9 +113,9 @@ internal class SectionManagerTest {
 
         // THEN
         verify(exactly = 1) { testRail.sections() }
-        verify(exactly = 1) { sections.delete(any()) }
+        verify(exactly = 1) { sections.delete(returnedId) }
         verify(exactly = 1) { delete.execute() }
-        verify(exactly = 1) { ExtractionUtils.extractIdFromDeletedFile(any()) }
+        verify(exactly = 1) { ExtractionUtils.extractIdFromDeletedFile(filePath) }
     }
 
     @Test
@@ -128,16 +125,10 @@ internal class SectionManagerTest {
             testRail.sections()
         } returns sections
         every {
-            sections.list(any(), any())
-        } returns list
-        every {
-            list.execute()
-        } returns listOf(movedUpdatedChildSection)
-        every {
-            testrailSectionWebClient.move(any(), any())
+            testrailSectionWebClient.move(appSection.id!!, appSection.parentId!!)
         } returns newSection
         every {
-            sections.update(any())
+            sections.update(testrailSection)
         } returns update
         justRun {
             update.execute()
@@ -147,25 +138,30 @@ internal class SectionManagerTest {
         sectionManager.move(appSection)
 
         // THEN
-        verify(exactly = 1) { sections.list(any(), any()) }
-        verify(exactly = 1) { list.execute() }
-        verify(exactly = 2) { testRail.sections() }
-        verify(exactly = 1) { testrailSectionWebClient.move(any(), any()) }
+        verify(exactly = 1) { testRail.sections() }
+        verify(exactly = 1) {
+            testrailSectionWebClient.move(
+                appSection.id!!,
+                appSection.parentId!!,
+            )
+        }
     }
 
     private companion object {
+        private const val PROJECT_ID: Int = 1
+
         private val appSection = AppSection(
             2,
             "testfolder",
             "Noting",
             1
         )
+        private val testrailSection = Section()
+            .setId(2)
+            .setName("testfolder")
+            .setDescription("Noting")
+            .setParentId(1)
         private val newSection = Section()
             .setId(3)
-        private val movedUpdatedChildSection = Section()
-            .setId(2)
-            .setParentId(3)
-            .setDescription("Test")
-            .setName("testfolder1")
     }
 }

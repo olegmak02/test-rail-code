@@ -1,6 +1,7 @@
 package systems.ajax.codetests.infrastructure.testrail.repository
 
 import kotlinx.serialization.json.Json
+import systems.ajax.codetests.application.model.FilePath
 import systems.ajax.codetests.infrastructure.testrail.repository.entity.Meta
 import java.io.BufferedReader
 import java.io.File
@@ -11,8 +12,8 @@ object ExtractionUtils {
     const val DELIMITER = ":"
     const val ID = "@id"
 
-    fun extractIdFromDeletedFile(filePath: String): Int? {
-        val process = ProcessBuilder("git", "show", "HEAD:$filePath")
+    fun extractIdFromDeletedFile(filePath: FilePath): Int? {
+        val process = ProcessBuilder("git", "show", "HEAD:${filePath.path}")
             .redirectErrorStream(true)
             .start()
 

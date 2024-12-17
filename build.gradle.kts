@@ -38,7 +38,6 @@ dependencies {
     testImplementation(libs.wiremock)
 }
 
-
 // Add gradle properties to the spring properties
 tasks.processResources {
     if (System.getenv("GITHUB_ACTIONS").isNullOrBlank()) {
@@ -56,4 +55,3 @@ tasks.register("allCheck") {
 
     dependsOn("check", "deltaCoverage", "detektMain", "detektTest")
 }
-
