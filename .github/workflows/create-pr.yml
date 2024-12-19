@@ -76,7 +76,11 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
           ${gradle_cmd} bootRun
+          echo ==========================================
           git status
+          echo ++++++++++++++++++++++++++++++++++++++++++
+          git branch
+          echo ******************************************
 
       - name: Create PR
         id: create-pr
