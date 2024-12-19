@@ -58,6 +58,9 @@ public class Case {
     private int sectionId;
 
     @JsonView({TestRail.Cases.Add.class, TestRail.Cases.Update.class})
+    private int templateId = 2;
+
+    @JsonView({TestRail.Cases.Add.class, TestRail.Cases.Update.class})
     private Integer typeId;
 
     @JsonView({TestRail.Cases.Add.class, TestRail.Cases.Update.class})

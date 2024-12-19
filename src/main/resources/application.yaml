@@ -5,10 +5,11 @@ testrail:
   #${TESTRAIL_LOGIN?:unknown}
   token: 8MbUxxpgfyPi6qH.QRU2-6yWeK/sIdYqVFgqyg2l7
   #${TESTRAIL_TOKEN?:unknown}
+  project:
+    id: 2
+  suite:
+    id: 9
 
 spring:
   main:
     web-application-type: none
-
-project:
-    id: 2

@@ -32,7 +32,7 @@ internal class SectionRepositoryIT {
         // GIVEN
         val parentPath = "src/test/kotlin/systems/ajax/codetests/infrastructure" +
             "/testrail/repository/testfilesforidwriter"
-        val featureFileName = "_Meta.json"
+        val featureFileName = "features/_Meta.json"
         val idToWrite = 1
         val file = File(parentPath, featureFileName)
         val fileId = FileId(

@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.deltaCoverageConventions)
     alias(libs.plugins.kotlinConventions)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.springBoot)
 }
 
 group = "systems.ajax.codetests"
@@ -54,9 +55,4 @@ tasks.register("allCheck") {
     description = "Runs check, deltaCoverage, detektMain, and detektTest tasks"
 
     dependsOn("check", "deltaCoverage", "detektMain", "detektTest")
-}
-
-tasks.register<JavaExec>("runMain") {
-    mainClass.set("systems.ajax.codetests.Main")
-    classpath = sourceSets["main"].runtimeClasspath
 }

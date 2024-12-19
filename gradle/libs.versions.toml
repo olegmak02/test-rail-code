@@ -32,6 +32,7 @@ kotlinJsonserialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-ser
 [plugins]
 cucumberRunner = { id = "se.thinkcode.cucumber-runner", version.ref = "cucumberRunnerVer" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVer" }
+springBoot = { id = "org.springframework.boot", version.ref = "springBootVer" }
 
 # Ajax
 deltaCoverageConventions = { id = "systems.ajax.gradle.coverage.delta-coverage-conventions", version.ref = "ajax-gradle-conventions" }

@@ -29,7 +29,7 @@ object FileIdWriter {
         }
     }
 
-    private fun isLinesEmptyOrMissingID(lines: MutableList<String>) = lines.isEmpty() || !lines[0].contains(ID)
+    private fun isLinesEmptyOrMissingID(lines: MutableList<String>) = lines.isEmpty() || lines.none { it.contains(ID) }
 
     private val log = LoggerFactory.getLogger(FileIdWriter::class.java)
 }

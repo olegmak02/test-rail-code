@@ -51,7 +51,7 @@ internal class GitDifference : FileDifferenceInPort {
 
     private companion object {
         private val trailingSpaceRegex = Regex("\\s+")
-        private const val SECTION_EXTENSION = ".section"
+        private const val SECTION_EXTENSION = "_Meta.json"
         private const val RESOURCES_FOLDER = "resources"
         private const val CASE_EXTENSION = ".feature"
         private const val GIT_REMOVED_SYMBOL = "D"
