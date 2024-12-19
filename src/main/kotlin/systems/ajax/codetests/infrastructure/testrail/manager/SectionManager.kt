@@ -15,12 +15,13 @@ import systems.ajax.codetests.infrastructure.testrail.repository.ExtractionUtils
 internal class SectionManager(
     private val testrail: TestRail,
     private val testrailSectionWebClient: TestrailSectionWebClient,
-    @Value("\${project.id}") private val projectId: Int
+    @Value("\${testrail.project.id}") private val projectId: Int,
+    @Value("\${testrail.suite.id}") private val suiteId: Int
 ) : SectionManagerOutPort {
 
     override fun add(appSection: AppSection): Int {
         val newSection = appSection.toTestrailView()
-        val response: Section = testrail.sections().add(projectId, newSection).execute()
+        val response: Section = testrail.sections().add(projectId, newSection.setSuiteId(suiteId)).execute()
         return response.id
     }
 

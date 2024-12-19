@@ -41,7 +41,7 @@ internal class SectionManagerTest {
 
     @BeforeEach
     fun setUp() {
-        sectionManager = SectionManager(testRail, testrailSectionWebClient, PROJECT_ID)
+        sectionManager = SectionManager(testRail, testrailSectionWebClient, PROJECT_ID, SUITE_ID)
     }
 
     @Test
@@ -51,7 +51,7 @@ internal class SectionManagerTest {
             testRail.sections()
         } returns sections
         every {
-            sections.add(PROJECT_ID, testrailSection)
+            sections.add(PROJECT_ID, newTestrailSection)
         } returns add
         every {
             add.execute()
@@ -62,7 +62,7 @@ internal class SectionManagerTest {
 
         // THEN
         verify(exactly = 1) { testRail.sections() }
-        verify(exactly = 1) { sections.add(PROJECT_ID, testrailSection) }
+        verify(exactly = 1) { sections.add(PROJECT_ID, newTestrailSection) }
         verify(exactly = 1) { add.execute() }
         assertEquals(newSection.id, actual)
     }
@@ -149,6 +149,7 @@ internal class SectionManagerTest {
 
     private companion object {
         private const val PROJECT_ID: Int = 1
+        private const val SUITE_ID: Int = 1
 
         private val appSection = AppSection(
             2,
@@ -161,6 +162,12 @@ internal class SectionManagerTest {
             .setName("testfolder")
             .setDescription("Noting")
             .setParentId(1)
+        private val newTestrailSection = Section()
+            .setId(2)
+            .setName("testfolder")
+            .setDescription("Noting")
+            .setParentId(1)
+            .setSuiteId(1)
         private val newSection = Section()
             .setId(3)
     }
